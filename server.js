@@ -66,14 +66,14 @@ class Movies {
     }
 }
 
-//http:localhost:3011/getWeather?lat=31.95&lon=35.91&
+//http:localhost:3011/getWeather?lat=31.95&lon=35.91&searchQuery=Amman
 server.get('/getWeather', getWeatherHandler);
 
 async function getWeatherHandler(req, res) {
-    const city = req.query.cityName
+    const city = req.query.searchQuery
     const lon = req.query.lon
     const lat = req.query.lat
-    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&${lat}&${lon}&key=${process.env.API_KEY}`;
+    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.API_KEY}`;
 
 
     axios
