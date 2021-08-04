@@ -8,30 +8,25 @@ const axios = require('axios');
 server.use(cors());
 const PORT = process.env.PORT;
 const Weather = require('./Weather')
-const Movies = require('./movies')
+const movies = require('./movies')
 
 
 
 //http://localhost:3011/getWeather?lat=31.95&lon=35.91&cityName=amman
-server.get('/getWeather', Weather);
-
+server.get('/getWeather', Weather.getWeatherHandler);
 
 //http://localhost:3011/movies?city=Amman
-server.get('/movies', Movies);
-
- 
+server.get('/movies', movies.getMovieHandler);
 
 
+// http://localhost:3002/test (/ === root route)
+
+server.get('/test', (req, res) => {
+    res.send('Hi From the root route');
+})
 
 
-// // http://localhost:3002/test (/ === root route)
-
-// server.get('/test', (req, res) => {
-//     res.send('Hi From the root route');
-// })
-
-
-// // http://localhost:3002/weather?lat=a&lon=b&searchQuery=c
+//  http://localhost:3002/weather?lat=a&lon=b&searchQuery=c
 
 // server.get('/weather', (req, res) => {
 
