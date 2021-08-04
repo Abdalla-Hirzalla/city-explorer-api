@@ -1,7 +1,8 @@
 const axios = require('axios');
 
+const Weather = {};
 
-function getWeatherHandler(req, res) {
+Weather.getWeatherHandler = function(req, res) {
     const city = req.query.cityName
     const lon = req.query.lon
     const lat = req.query.lat
@@ -13,7 +14,7 @@ function getWeatherHandler(req, res) {
         .then(result => {
             console.log('inside promise');
             let weatherArray = result.data.data
-            res.send(wetherForObject(weatherArray));
+            res.send(Weather.wetherForObject(weatherArray));
         })
         .catch(err => {
             res.send(err);
@@ -21,7 +22,7 @@ function getWeatherHandler(req, res) {
     console.log('outside promise');
 }
 
-const wetherForObject = (weatherObj) => {
+Weather.wetherForObject = (weatherObj) => {
 
     const forCastObj = [];
     weatherObj.map(element => {
@@ -40,4 +41,4 @@ class Forcast {
 
     }
 }
-module.exports = getWeatherHandler;
+module.exports = Weather;
