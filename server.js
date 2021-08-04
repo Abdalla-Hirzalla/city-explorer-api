@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 
 
-//http:localhost:3011/movies?city=Amman
+//http://localhost:3011/movies?city=Amman
 server.get('/movies', getMovieHandler);
 
 async function getMovieHandler(req, res) {
@@ -66,21 +66,21 @@ class Movies {
     }
 }
 
-//http:localhost:3011/getWeather?lat=31.95&lon=35.91&
+//http://localhost:3011/getWeather?lat=31.95&lon=35.91&cityName=amman
 server.get('/getWeather', getWeatherHandler);
 
 async function getWeatherHandler(req, res) {
     const city = req.query.cityName
     const lon = req.query.lon
     const lat = req.query.lat
-    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&${lat}&${lon}&key=${process.env.API_KEY}`;
+    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.API_KEY}`;
 
 
     axios
         .get(URL)
         .then(result => {
             console.log('inside promise');
-            let weatherArray = result.data
+            let weatherArray = result.data.data
             res.send(wetherForObject(weatherArray));
         })
         .catch(err => {
@@ -92,7 +92,7 @@ async function getWeatherHandler(req, res) {
 const wetherForObject = (weatherObj) => {
 
     const forCastObj = [];
-    weatherObj.data.map(element => {
+    weatherObj.map(element => {
 
         const description = `Low of ${element.low_temp} ,High of ${element.max_temp} with ${element.weather.description}`;
         const date = element.datetime;
